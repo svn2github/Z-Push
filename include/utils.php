@@ -92,14 +92,6 @@ function _getFolderID($devid, $class) {
     return false;
 }
 
-/**
- * Function which converts a hex entryid to a binary entryid.
- * @param string @data the hexadecimal string
- */
-function hex2bin($data) {
-    return pack("H*", $data);
-}
-
 //if the ICS backend is loaded in CombinedBackend and Zarafa > 7
 //STORE_SUPPORTS_UNICODE is true and the convertion will not be done
 //for other backends.

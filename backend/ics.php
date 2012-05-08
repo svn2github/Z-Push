@@ -1848,8 +1848,10 @@ class PHPContentsImportProxy extends MAPIMapping {
 
         $fromname = $fromaddr = "";
 
-        if(isset($messageprops[PR_SENT_REPRESENTING_NAME]))
-            $fromname = $messageprops[PR_SENT_REPRESENTING_NAME];
+        if(isset($messageprops[PR_SENT_REPRESENTING_NAME])) {
+            // remove encapsulating double quotes from the representingname
+            $fromname = preg_replace('/^\"(.*)\"$/',"\${1}", $messageprops[PR_SENT_REPRESENTING_NAME]);
+        }
         if(isset($messageprops[PR_SENT_REPRESENTING_ENTRYID]))
             $fromaddr = $this->_getSMTPAddressFromEntryID($messageprops[PR_SENT_REPRESENTING_ENTRYID]);
 

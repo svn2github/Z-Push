@@ -43,7 +43,7 @@
 * Consult LICENSE file for details
 ************************************************/
 
-ob_start(false, 1048576);
+ob_start(null, 1048576);
 
 include_once('zpushdefs.php');
 include_once("config.php");

@@ -1317,7 +1317,15 @@ class ImportHierarchyChangesICS  {
     function ImportFolderChange($id, $parent, $displayname, $type) {
         //create a new folder if $id is not set
         if (!$id) {
-            $parentfentryid = mapi_msgstore_entryidfromsourcekey($this->store, hex2bin($parent));
+            // the root folder is "0" - get IPM_SUBTREE
+            if ($parent == "0") {
+                $parentprops = mapi_getprops($this->store, array(PR_IPM_SUBTREE_ENTRYID));
+                if (isset($parentprops[PR_IPM_SUBTREE_ENTRYID]))
+                    $parentfentryid = $parentprops[PR_IPM_SUBTREE_ENTRYID];
+            }
+            else
+                $parentfentryid = mapi_msgstore_entryidfromsourcekey($this->store, hex2bin($parent));
+
             $parentfolder = mapi_msgstore_openentry($this->store, $parentfentryid);
             $parentpros = mapi_getprops($parentfolder, array(PR_DISPLAY_NAME));
             $newfolder = mapi_folder_createfolder($parentfolder, $displayname, "");

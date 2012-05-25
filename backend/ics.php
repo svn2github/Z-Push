@@ -1332,6 +1332,8 @@ class ImportHierarchyChangesICS  {
             mapi_setprops($newfolder, array(PR_CONTAINER_CLASS => $this->GetContainerClassFromFolderType($type)));
             $props =  mapi_getprops($newfolder, array(PR_SOURCE_KEY));
             $id = bin2hex($props[PR_SOURCE_KEY]);
+            debugLog("Folder created with id:$id");
+            return $id;
         }
 
         mapi_importhierarchychanges_importfolderchange($this->importer, array ( PR_SOURCE_KEY => hex2bin($id), PR_PARENT_SOURCE_KEY => hex2bin($parent), PR_DISPLAY_NAME => $displayname) );
